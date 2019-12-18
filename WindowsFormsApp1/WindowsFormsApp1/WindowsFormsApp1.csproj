@@ -57,11 +57,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="all_order.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="all_order.Designer.cs">
+      <DependentUpon>all_order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Authorized.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Authorized.Designer.cs">
       <DependentUpon>Authorized.cs</DependentUpon>
+    </Compile>
+    <Compile Include="constr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="constr.Designer.cs">
+      <DependentUpon>constr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cutting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cutting.Designer.cs">
+      <DependentUpon>cutting.cs</DependentUpon>
     </Compile>
     <Compile Include="director.cs">
       <SubType>Form</SubType>
@@ -83,6 +101,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="receipt_of_materials.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="receipt_of_materials.Designer.cs">
+      <DependentUpon>receipt_of_materials.cs</DependentUpon>
+    </Compile>
     <Compile Include="registration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,8 +131,17 @@
     <Compile Include="Заказчик.Designer.cs">
       <DependentUpon>Заказчик.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="all_order.resx">
+      <DependentUpon>all_order.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Authorized.resx">
       <DependentUpon>Authorized.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="constr.resx">
+      <DependentUpon>constr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cutting.resx">
+      <DependentUpon>cutting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="director.resx">
       <DependentUpon>director.cs</DependentUpon>
@@ -128,6 +161,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="receipt_of_materials.resx">
+      <DependentUpon>receipt_of_materials.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="registration.resx">
       <DependentUpon>registration.cs</DependentUpon>
     </EmbeddedResource>
