@@ -46,6 +46,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Список изделий";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -69,6 +70,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "Список заказов";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -80,6 +82,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "Оформление заказа";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -91,6 +94,7 @@
             this.button5.TabIndex = 4;
             this.button5.Text = "Отчет";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -102,6 +106,7 @@
             this.button6.TabIndex = 5;
             this.button6.Text = "Выход";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // manager
             // 

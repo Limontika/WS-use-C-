@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SQLite;
 
 namespace WindowsFormsApp1
 {
@@ -30,6 +29,8 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (textBox1.Text.Length == 0) button1.Enabled = false;
+            else button1.Enabled = true;
             /*DB = new SQLiteConnection("Data Source=D:/myProject/WS-use-C-/database/new.db");
             DB.Open();*/
         }
@@ -42,27 +43,42 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             if (textBox1.Text == "1")
             {
-                Form storekeeper = new storekeeper();
-                storekeeper.Show();
-                textBox1.Text = " ";
-                textBox2.Text = " ";
+                Form customer = new Заказчик();
+                customer.ShowDialog();
+                textBox1.Text = "";
+                textBox2.Text = "";
 
             }else if (textBox1.Text == "2")
             {
                 Form storekeeper = new storekeeper();
-                storekeeper.Show();
+                storekeeper.ShowDialog();
+                textBox1.Text = "";
+                textBox2.Text = "";
             }
             else if (textBox1.Text == "3")
             {
-                Form storekeeper = new storekeeper();
-                storekeeper.Show();
+                Form manager = new manager();
+                manager.ShowDialog();
+                textBox1.Text = "";
+                textBox2.Text = "";
             }
             else if (textBox1.Text == "4")
             {
-                Form storekeeper = new storekeeper();
-                storekeeper.Show();
+                Form director = new director();
+                director.ShowDialog();
+                textBox1.Text = "";
+                textBox2.Text = "";
+            }else
+            {
+                   MessageBox.Show(
+                   "Логин или пароль неправильны",
+                   "Сообщение",
+                   MessageBoxButtons.OKCancel,
+                   MessageBoxIcon.Error,
+                   MessageBoxDefaultButton.Button1);
             }
         }
     }

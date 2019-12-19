@@ -16,5 +16,16 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form order = new order();
+            order.ShowDialog();
+        }
     }
 }

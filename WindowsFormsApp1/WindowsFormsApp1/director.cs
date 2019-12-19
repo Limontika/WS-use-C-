@@ -19,7 +19,25 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var name_label = "Список изделий";
+            Form viewItem = new viewItems(name_label);
+            viewItem.ShowDialog();
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form all_order = new all_order();
+            all_order.ShowDialog();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //Отчеты ......
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
