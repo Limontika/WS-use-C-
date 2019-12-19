@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,14 +22,12 @@ namespace WindowsFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            Form form = new Form1();
-            form.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Regex def_passwd = new Regex(@"(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}");
-            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "")
+            if (textBox2.Text != "" && textBox3.Text != "")
             {
                 if (textBox2.Text != textBox3.Text)
                 {
@@ -37,12 +36,49 @@ namespace WindowsFormsApp1
                         "Сообщение",
                         MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Error,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly);
+                        MessageBoxDefaultButton.Button1);
                 }
-                if (def_passwd.IsMatch(textBox2.Text) && textBox2.Text == textBox3.Text)
+                else if (def_passwd.IsMatch(textBox2.Text) && textBox2.Text == textBox3.Text)
                 {
-                   
+                    MySqlConnection conn = DB.GetDBConnection();
+                    try
+                    {
+                        conn.Open();
+                    }
+                    catch
+                    {
+                        MessageBox.Show(
+                        "Проблемы с подключением к БД",
+                        "Сообщение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                    }
+
+                    try
+                    {
+                        string sql = $"INSERT users (login, password, role_id) VALUES ('{textBox1.Text}', '{textBox2.Text}', 1);";
+                        MySqlCommand cmd = conn.CreateCommand();
+                        cmd.CommandText = sql;
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show(
+                        $"Пользователь '{textBox1.Text}' был успешно добавлен",
+                        "Сообщение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1);
+                    }
+                    catch
+                    {
+                        MessageBox.Show(
+                        "Неполучилось создать пользователя, обратитесь к системному админестратору",
+                        "Сообщение",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                    }
+                    
                 }
                 else
                 {
@@ -51,15 +87,26 @@ namespace WindowsFormsApp1
                        "Сообщение",
                        MessageBoxButtons.OKCancel,
                        MessageBoxIcon.Error,
-                       MessageBoxDefaultButton.Button1,
-                       MessageBoxOptions.DefaultDesktopOnly);
+                       MessageBoxDefaultButton.Button1);
                 }
             }
             else
             {
-                
+                MessageBox.Show(
+                  "Введите пароли ПОЖАЛУЙСТА!",
+                  "Сообщение",
+                  MessageBoxButtons.OK,
+                  MessageBoxIcon.Error,
+                  MessageBoxDefaultButton.Button1);
+
             }
             
+        }
+
+        private void registration_Load(object sender, EventArgs e)
+        {
+            if (textBox1.Text.Length == 0) button1.Enabled = false;
+            else button1.Enabled = true;
         }
     }
 }

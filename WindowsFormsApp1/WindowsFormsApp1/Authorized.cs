@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,8 +14,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-
-        /*private SQLiteConnection DB;*/
+        private int id_role;
 
         public Form1()
         {
@@ -22,63 +23,89 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
             registration reg = new registration();
-            reg.Show();
+            reg.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             if (textBox1.Text.Length == 0) button1.Enabled = false;
             else button1.Enabled = true;
-            /*DB = new SQLiteConnection("Data Source=D:/myProject/WS-use-C-/database/new.db");
-            DB.Open();*/
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            /*DB.Close();*/
             Application.Exit();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if (textBox1.Text == "1")
+            MySqlConnection conn = DB.GetDBConnection();
+            try
+            {
+                conn.Open();
+            }
+            catch
+            {
+                MessageBox.Show(
+                "Проблемы с подключением к БД",
+                "Сообщение",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1);
+            }
+
+            String loginUser = textBox1.Text;
+            String passUser = textBox2.Text;
+            try
+            {
+                string sql = $"SELECT id, login, password, role_id FROM users WHERE login='{loginUser}' AND password='{passUser}'";
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = sql;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                int.TryParse(reader[0].ToString(), out id_role);
+            }
+            catch
+            {
+                MessageBox.Show(
+                "Логин или пароль неправильны",
+                "Сообщение",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1);
+            }
+            
+
+
+            if (id_role == 1)
             {
                 Form customer = new Заказчик();
                 customer.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
-
-            }else if (textBox1.Text == "2")
+            }
+            else if (id_role == 2)
             {
                 Form storekeeper = new storekeeper();
                 storekeeper.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
             }
-            else if (textBox1.Text == "3")
+            else if (id_role == 3)
             {
                 Form manager = new manager();
                 manager.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
             }
-            else if (textBox1.Text == "4")
+            else if (id_role == 4)
             {
                 Form director = new director();
                 director.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
-            }else
-            {
-                   MessageBox.Show(
-                   "Логин или пароль неправильны",
-                   "Сообщение",
-                   MessageBoxButtons.OKCancel,
-                   MessageBoxIcon.Error,
-                   MessageBoxDefaultButton.Button1);
             }
         }
     }

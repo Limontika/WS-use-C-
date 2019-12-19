@@ -58,7 +58,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(35, 33);
+            this.textBox3.Location = new System.Drawing.Point(35, 132);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(240, 20);
             this.textBox3.TabIndex = 8;
@@ -97,11 +97,11 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(35, 132);
+            this.textBox1.Location = new System.Drawing.Point(35, 33);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(240, 20);
             this.textBox1.TabIndex = 12;
-            this.textBox1.UseSystemPasswordChar = true;
+            this.textBox1.TextChanged += new System.EventHandler(this.registration_Load);
             // 
             // textBox2
             // 
@@ -109,7 +109,6 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(240, 20);
             this.textBox2.TabIndex = 9;
-            this.textBox2.UseSystemPasswordChar = true;
             // 
             // registration
             // 
@@ -126,6 +125,7 @@
             this.Controls.Add(this.button1);
             this.Name = "registration";
             this.Text = "registration";
+            this.Load += new System.EventHandler(this.registration_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
