@@ -12,9 +12,15 @@ namespace WindowsFormsApp1
 {
     public partial class viewItems : Form
     {
-        public viewItems()
+        public viewItems(string text)
         {
             InitializeComponent();
+            label1.Text = text;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
