@@ -12,9 +12,15 @@ namespace WindowsFormsApp1
 {
     public partial class all_order : Form
     {
-        public all_order()
+
+        private int id_user;
+        private int id_role;
+
+        public all_order(int id, int role)
         {
             InitializeComponent();
+            id_user = id;
+            id_role = role;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -24,8 +30,13 @@ namespace WindowsFormsApp1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form order = new order();
+            Form order = new order(id_user);
             order.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -12,9 +12,15 @@ namespace WindowsFormsApp1
 {
     public partial class manager : Form
     {
-        public manager()
+
+        private int id_user;
+        private int id_role;
+
+        public manager(int id, int role)
         {
             InitializeComponent();
+            id_user = id;
+            id_role = role;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -32,13 +38,13 @@ namespace WindowsFormsApp1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form all_order = new all_order();
+            Form all_order = new all_order(id_user, id_role);
             all_order.ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form order = new order();
+            Form order = new order(id_user);
             order.ShowDialog();
         }
 

@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        private int id_user;
         private int id_role;
 
         public Form1()
@@ -60,12 +61,13 @@ namespace WindowsFormsApp1
             String passUser = textBox2.Text;
             try
             {
-                string sql = $"SELECT id, login, password, role_id FROM users WHERE login='{loginUser}' AND password='{passUser}'";
+                string sql = $"SELECT id, role_id FROM users WHERE login='{loginUser}' AND password='{passUser}'";
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = sql;
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Read();
-                int.TryParse(reader[0].ToString(), out id_role);
+                int.TryParse(reader[0].ToString(), out id_user);
+                int.TryParse(reader[1].ToString(), out id_role);
             }
             catch
             {
@@ -76,12 +78,10 @@ namespace WindowsFormsApp1
                 MessageBoxIcon.Error,
                 MessageBoxDefaultButton.Button1);
             }
-            
-
 
             if (id_role == 1)
             {
-                Form customer = new Заказчик();
+                Form customer = new Заказчик(id_user, id_role);
                 customer.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
@@ -95,14 +95,14 @@ namespace WindowsFormsApp1
             }
             else if (id_role == 3)
             {
-                Form manager = new manager();
+                Form manager = new manager(id_user, id_role);
                 manager.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
             }
             else if (id_role == 4)
             {
-                Form director = new director();
+                Form director = new director(id_user, id_role);
                 director.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";

@@ -12,20 +12,25 @@ namespace WindowsFormsApp1
 {
     public partial class Заказчик : Form
     {
-        public Заказчик()
+        private int id_user;
+        private int id_role;
+
+        public Заказчик(int id, int role)
         {
             InitializeComponent();
+            id_user = id;
+            id_role = role;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form all_order = new all_order();
+            Form all_order = new all_order(id_user, id_role);
             all_order.ShowDialog();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form order = new order();
+            Form order = new order(id_user);
             order.ShowDialog();
         }
 
