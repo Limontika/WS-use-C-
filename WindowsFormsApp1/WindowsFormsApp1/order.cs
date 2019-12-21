@@ -277,5 +277,9 @@ namespace WindowsFormsApp1
                 MessageBoxDefaultButton.Button1);
             }
         }
+
+        private void order_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
     }
 }
