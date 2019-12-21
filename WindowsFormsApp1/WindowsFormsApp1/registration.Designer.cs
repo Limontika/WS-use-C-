@@ -62,6 +62,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(240, 20);
             this.textBox3.TabIndex = 8;
+            this.textBox3.UseSystemPasswordChar = true;
             // 
             // button2
             // 
@@ -109,6 +110,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(240, 20);
             this.textBox2.TabIndex = 9;
+            this.textBox2.UseSystemPasswordChar = true;
             // 
             // registration
             // 
