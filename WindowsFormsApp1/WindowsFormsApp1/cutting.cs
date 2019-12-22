@@ -14,7 +14,8 @@ namespace WindowsFormsApp1
     public partial class cutting : Form
     {
         private string sql;
-        private object[] mass_vendorCode;
+        private object[] mass_vendCode_material;
+        private object[] mass_vendCode_product;
         
         public cutting()
         {
@@ -33,16 +34,34 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            PrintDialog print = new PrintDialog();
-            print.ShowDialog();
+            if (pictureBox1.Visible == true && pictureBox2.Visible == true)
+            {
+                PrintDialog print = new PrintDialog();
+                print.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(
+                $"Не выстроенна схема раскроя невозможно отправить на печать",
+                "Сообщение",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1);
+            }
+
+            
         }
 
         private void cutting_Load(object sender, EventArgs e)
         {
 
+            pictureBox1.Visible = false;
+            pictureBox2.Visible = false;
+
             List<object> products = new List<object>();
             List<object> materials = new List<object>();
-            //List<object> vendCode = new List<object>();
+            List<object> vendCode_product = new List<object>();
+            List<object> vendCode_material = new List<object>();
 
             this.comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             this.comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -71,24 +90,26 @@ namespace WindowsFormsApp1
                 while (reader.Read())
                 {
                     products.Add(reader[1] + " " + reader[3] + "x" + reader[4]);
+                    vendCode_product.Add(reader[0]);
+
                 }
                 reader.Close();
 
                 sql = $"SELECT vendor_code, composition, color, width, height FROM rolls";
                 cmd.CommandText = sql;
                 reader = cmd.ExecuteReader();
-                int tmp = 0;
                 while (reader.Read())
                 {
                     materials.Add(reader[1] + " " + reader[2] + " " + reader[3] + "x" + reader[4]);
-                    //int.TryParse(reader[0].ToString(), out tmp);
-                    //vendCode.Add(tmp);
+                    vendCode_material.Add(reader[0]);
                 }
                 reader.Close();
                 conn.Close();
                 comboBox1.Items.AddRange(products.ToArray());
                 comboBox2.Items.AddRange(materials.ToArray());
-                //vendCode.CopyTo(mass_vendorCode);
+                mass_vendCode_material = vendCode_material.ToArray();
+                mass_vendCode_product = vendCode_product.ToArray();
+
             }
             catch(Exception er)
             {
@@ -105,11 +126,8 @@ namespace WindowsFormsApp1
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-           
-        }
+            pictureBox1.Visible = true;
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
             MySqlConnection conn = DB.GetDBConnection();
             try
             {
@@ -131,12 +149,73 @@ namespace WindowsFormsApp1
             string color = "";
 
 
-            int.TryParse(comboBox2.SelectedIndex.ToString(), out index);
-            Console.WriteLine(mass_vendorCode[index]);
+            int.TryParse(comboBox1.SelectedIndex.ToString(), out index);
+            Console.WriteLine(mass_vendCode_product[index]);
 
             try
             {
-                string sql = $"SELECT width, height, color FROM rolls WHERE vendor_code = {index+1}";
+                string sql = $"SELECT width, height FROM products WHERE vendor_code = {mass_vendCode_product[index]}";
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = sql;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    int.TryParse(reader[0].ToString(), out width);
+                    int.TryParse(reader[1].ToString(), out height);
+
+                }
+                reader.Close();
+                conn.Close();
+
+            }
+            catch
+            {
+                MessageBox.Show(
+                "Не выбрано материалов для оформления заказа",
+                "Сообщение",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1);
+            }
+
+            pictureBox2.Width = width;
+            pictureBox2.Height = height;
+            pictureBox2.BackColor = Color.Black;
+            pictureBox2.BringToFront();
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            pictureBox2.Visible = true;
+
+            MySqlConnection conn = DB.GetDBConnection();
+            try
+            {
+                conn.Open();
+            }
+            catch
+            {
+                MessageBox.Show(
+                "Проблемы с подключением к БД",
+                "Сообщение",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1);
+            }
+
+            int index = 0;
+            int height = 0;
+            int width = 0;
+            string color = "";
+
+            int.TryParse(comboBox2.SelectedIndex.ToString(), out index);
+            Console.WriteLine(mass_vendCode_material[index]);
+
+            try
+            {
+                string sql = $"SELECT width, height, color FROM rolls WHERE vendor_code = {mass_vendCode_material[index]}";
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = sql;
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -169,7 +248,7 @@ namespace WindowsFormsApp1
                     pictureBox1.BackColor = Color.Blue;
                     break;
                 case "Светло-синий":
-                    pictureBox1.BackColor = Color.BlueViolet;
+                    pictureBox1.BackColor = Color.LightBlue;
                     break;
                 case "Оранжевый":
                     pictureBox1.BackColor = Color.Orange;
@@ -190,6 +269,50 @@ namespace WindowsFormsApp1
                     pictureBox1.BackColor = Color.Gray;
                     break;
             } 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+
+            if (pictureBox1.Visible == false || pictureBox2.Visible == false)
+            {
+                MessageBox.Show(
+               "Невозможно отпарвить на производство",
+               "Сообщение",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Error,
+               MessageBoxDefaultButton.Button1);
+            }
+            else
+            {
+                if (pictureBox2.Width <= pictureBox1.Width && pictureBox2.Height <= pictureBox1.Height)
+                {
+                    MessageBox.Show(
+                    "Схема раскроя отправлен на производство",
+                    "Сообщение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1);
+                }
+                else
+                {
+                    MessageBox.Show(
+                    "Невозможно отпарвить на производство",
+                    "Сообщение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1);
+                }
+            }
+
+            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Visible = false;
+            pictureBox2.Visible = false;
         }
     }
 }
