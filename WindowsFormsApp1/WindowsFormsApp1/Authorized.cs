@@ -88,15 +88,16 @@ namespace WindowsFormsApp1
             }
             else if (id_role == 2)
             {
-                Form storekeeper = new storekeeper();
-                storekeeper.ShowDialog();
+                Form manager = new manager(id_user, id_role);
+                manager.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
+                
             }
             else if (id_role == 3)
             {
-                Form manager = new manager(id_user, id_role);
-                manager.ShowDialog();
+                Form storekeeper = new storekeeper();
+                storekeeper.ShowDialog();
                 textBox1.Text = "";
                 textBox2.Text = "";
             }

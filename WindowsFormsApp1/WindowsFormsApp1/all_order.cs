@@ -39,6 +39,8 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
 
+            string sql = "";
+
             string[] status = new string[4] { "Новый", "Принят к проверке", "В работе", "Выполнен" };
 
             var temp = MessageBox.Show(
@@ -82,7 +84,17 @@ namespace WindowsFormsApp1
                             try
                             {
                                 DateTime now = DateTime.Now;
-                                string sql = $"UPDATE orders SET state='{status[i + 1]}', updated_at='{now}' WHERE id={dataGridView1.Rows[int.Parse(dataGridView1.CurrentCellAddress.Y.ToString())].Cells[0].Value}";
+                                if (dataGridView1.CurrentCell.Value.ToString() == "Новый" && dataGridView1.Rows[int.Parse(dataGridView1.CurrentCellAddress.Y.ToString())].Cells[3].Value.ToString() == "")
+                                {
+                                    sql = $"UPDATE orders SET state='{status[i + 1]}', updated_at='{now}', manager_id={id_user} WHERE id={dataGridView1.Rows[int.Parse(dataGridView1.CurrentCellAddress.Y.ToString())].Cells[0].Value}";
+                                    dataGridView1.CurrentCell.Value = status[i + 1];
+                                    dataGridView1.Rows[int.Parse(dataGridView1.CurrentCellAddress.Y.ToString())].Cells[3].Value = $"{id_user}";
+                                }
+                                else
+                                {
+                                    sql = $"UPDATE orders SET state='{status[i + 1]}', updated_at='{now}' WHERE id={dataGridView1.Rows[int.Parse(dataGridView1.CurrentCellAddress.Y.ToString())].Cells[0].Value}";
+                                    dataGridView1.CurrentCell.Value = status[i + 1];
+                                }
                                 Console.WriteLine(sql);
                                 MySqlCommand cmd = conn.CreateCommand();
                                 cmd.CommandText = sql;
@@ -100,8 +112,6 @@ namespace WindowsFormsApp1
                                 MessageBoxIcon.Error,
                                 MessageBoxDefaultButton.Button1);
                             }
-
-                            dataGridView1.CurrentCell.Value = status[i + 1];
 
                             MessageBox.Show(
                             $"Сатус изменен на {dataGridView1.CurrentCell.Value}",
@@ -161,10 +171,10 @@ namespace WindowsFormsApp1
                     this.button1.Hide();
                     sql = $"SELECT id, state, customer_id, manager_id, created_at, updated_at FROM orders WHERE customer_id= {id_user}";
                 }
-                else if (id_role == 3)
+                else if (id_role == 2)
                 {
                     this.button4.Hide();
-                    sql = $"SELECT id, state, customer_id, manager_id, created_at, updated_at FROM orders WHERE manager_id= {id_user}";
+                    sql = $"SELECT id, state, customer_id, manager_id, created_at, updated_at FROM orders WHERE manager_id = {id_user} OR state='Новый'";
                 }
 
                 MySqlCommand cmd = conn.CreateCommand();

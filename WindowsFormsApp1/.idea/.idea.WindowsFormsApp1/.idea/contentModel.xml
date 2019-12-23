@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Limontika\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Limontika\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_WindowsFormsApp1.267749990.00" t="ExcludeRecursive" />
+    <e p="D:\myProject\WS-use-C-\WindowsFormsApp1" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive">
+        <e p="SQLite.3.13.0\runtimes\win7-x64\native\sqlite3.dll" t="Include" />
+        <e p="SQLite.3.13.0\runtimes\win7-x86\native\sqlite3.dll" t="Include" />
+      </e>
+      <e p="WindowsFormsApp1" t="IncludeRecursive">
+        <e p="all_order.cs" t="Include" />
+        <e p="all_order.Designer.cs" t="Include" />
+        <e p="all_order.resx" t="Include" />
+        <e p="App.config" t="Include" />
+        <e p="Authorized.cs" t="Include" />
+        <e p="Authorized.Designer.cs" t="Include" />
+        <e p="Authorized.resx" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="constr.cs" t="Include" />
+        <e p="constr.Designer.cs" t="Include" />
+        <e p="constr.resx" t="Include" />
+        <e p="cutting.cs" t="Include" />
+        <e p="cutting.Designer.cs" t="Include" />
+        <e p="cutting.resx" t="Include" />
+        <e p="DB.cs" t="Include" />
+        <e p="DBMySQLUnits.cs" t="Include" />
+        <e p="director.cs" t="Include" />
+        <e p="director.Designer.cs" t="Include" />
+        <e p="director.resx" t="Include" />
+        <e p="manager.cs" t="Include" />
+        <e p="manager.Designer.cs" t="Include" />
+        <e p="manager.resx" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="order.cs" t="Include" />
+        <e p="order.Designer.cs" t="Include" />
+        <e p="order.resx" t="Include" />
+        <e p="packages.config" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="Resources.Designer.cs" t="Include" />
+          <e p="Resources.resx" t="Include" />
+          <e p="Settings.Designer.cs" t="Include" />
+          <e p="Settings.settings" t="Include" />
+        </e>
+        <e p="receipt_of_materials.cs" t="Include" />
+        <e p="receipt_of_materials.Designer.cs" t="Include" />
+        <e p="receipt_of_materials.resx" t="Include" />
+        <e p="registration.cs" t="Include" />
+        <e p="registration.Designer.cs" t="Include" />
+        <e p="registration.resx" t="Include" />
+        <e p="storekeeper.cs" t="Include" />
+        <e p="storekeeper.Designer.cs" t="Include" />
+        <e p="storekeeper.resx" t="Include" />
+        <e p="viewItems.cs" t="Include" />
+        <e p="viewItems.Designer.cs" t="Include" />
+        <e p="viewItems.resx" t="Include" />
+        <e p="WindowsFormsApp1.csproj" t="IncludeRecursive" />
+        <e p="x64" t="Include" />
+        <e p="x86" t="Include" />
+        <e p="Заказчик.cs" t="Include" />
+        <e p="Заказчик.Designer.cs" t="Include" />
+        <e p="Заказчик.resx" t="Include" />
+      </e>
+      <e p="WindowsFormsApp1.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
